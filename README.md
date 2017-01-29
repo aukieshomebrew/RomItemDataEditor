@@ -28,3 +28,6 @@ Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>]
     1.  Clone this project in a directory.
     2.  Use: 'nuget restore' to download the dependencies.
     3.  Use: 'msbuild RomItemDataEditor.sln' to build the project.
+
+Note:
+In the project directory is a sample 'data.xml' file.
