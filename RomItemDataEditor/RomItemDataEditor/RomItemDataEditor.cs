@@ -117,7 +117,7 @@ namespace RomItemDataEditor
         [Option('i', "index-number", Required = true, HelpText = "Index of the item.", DefaultValue = 0)]
         public int ArgIndex { get; set; }
 
-        [Option('d', "data-name", Required = false, HelpText = "Struct name to get value from.")]
+        [Option('v', "get-value", Required = false, HelpText = "Struct name to get value from.")]
         public string ArgStructName { get; set; }
 
         [Option("print-hex", Required = false, HelpText = "Print hexidecimal value.")]
@@ -137,7 +137,7 @@ namespace RomItemDataEditor
                 AddDashesToOption = true
 
             };
-            help.AddPreOptionsLine("Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>] [--index-number <index number>] [--data-name <datamember name>] [--print-hex]");
+            help.AddPreOptionsLine("Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>] [--index-number <index number>] [--get-value <datamember name>] [--print-hex]");
             help.AddOptions(this);
             return help;
         }
