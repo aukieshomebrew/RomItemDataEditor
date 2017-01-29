@@ -1,4 +1,9 @@
-﻿
+﻿/*
+ *      RomItemDataEditor.cs    Made by Aukie's Homebrew.
+ *      Main class with the main function and cmd parsing abilities.
+ */
+
+
 
 using System;
 using System.IO;

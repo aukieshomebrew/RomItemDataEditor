@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ *  RomReader.cs    Made by: Aukie's Homebrew 
+ *  This class accesses the ROM file and extract data from it.
+ */
+
+
+using System;
 using System.IO;
 using System.Text;
 

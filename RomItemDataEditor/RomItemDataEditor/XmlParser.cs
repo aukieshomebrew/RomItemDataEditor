@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ *  XmlParser.cs     Made by: Aukie's Hombrew
+ *  Data in the xml file can be accesses with this class
+ */
+
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Globalization;
@@ -154,6 +160,7 @@ namespace RomItemDataEditor
 
         public char GetAsciiByHex(byte hex)
         {
+
             IEnumerable<XElement> table = root.Element("encoding-table").Descendants("encoding");
             char ret = ' ';
 
