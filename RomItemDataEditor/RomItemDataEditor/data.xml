@@ -1,9 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
-
 <data>
-  
-  <!--Core Values-->
   <core>
     <game name="Pokemon Ruby (US)"       gamecode="AXVE"/>
     <game name="Pokemon Sapphire (US)"   gamecode="AXPE"/>
@@ -11,16 +7,14 @@
     <game name="Pokemon FireRed (US)"    gamecode="BPRE"/>
     <game name="Pokemon LeafGreen (US)"  gamecode="BPGE"/>
   </core>
-  
-  <!--Base Offsets for items-->
+
   <items>
     <offset name="base" gamecode="AXVE" offset="0x083C5564" />
     <offset name="base" gamecode="AXPE" offset="0x083C55BC" />
     <offset name="base" gamecode="BPEE" offset="0x085839A0" />
     <offset name="base" gamecode="BPRE" offset="0x083DB028" />
     <offset name="base" gamecode="BPGE" offset="0x083DAE64" />
-    
-  <!--Item struct offsets-->
+
     <item>
       <offset name="name"           size="0x0E" offset="0x00"/>
       <offset name="index"          size="0x02" offset="0x0E"/>
@@ -40,7 +34,7 @@
   </items>
 
   <encoding-table>
-    <!--Encoding Data-->
+
     <encoding hex="0x00" ascii=" "/>
     <encoding hex="0xBB" ascii="A"/>
     <encoding hex="0xBC" ascii="B"/>
@@ -98,7 +92,7 @@
     <encoding hex="0xED" ascii="y"/>
     <encoding hex="0xEE" ascii="z"/>
     <encoding hex="0xEF" ascii=">"/>
-
+    
     <encoding hex="0xA1" ascii="0"/>
     <encoding hex="0xA2" ascii="1"/>
     <encoding hex="0xA3" ascii="2"/>
@@ -111,6 +105,9 @@
     <encoding hex="0xAA" ascii="9"/>
     <encoding hex="0xAB" ascii="!"/>
     <encoding hex="0xAC" ascii="?"/>
+
+    <encoding hex="0xAD" ascii="."/>
+    
     
   </encoding-table>
 
