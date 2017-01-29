@@ -23,7 +23,7 @@ Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>]
 
   --help                Display this help screen.
   
-  # How to compile
+  How to compile:
   
     1.  Clone this project in a directory.
     2.  Use: 'nuget restore' to download the dependencies.
