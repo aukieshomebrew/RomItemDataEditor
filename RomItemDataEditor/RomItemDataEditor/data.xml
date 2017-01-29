@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+
+<data>
+  
+  <!--Core Values-->
+  <core>
+    <game name="Pokemon Ruby (US)"       gamecode="AXVE"/>
+    <game name="Pokemon Sapphire (US)"   gamecode="AXPE"/>
+    <game name="Pokemon Emerald (US)"    gamecode="BPEE"/>
+    <game name="Pokemon FireRed (US)"    gamecode="BPRE"/>
+    <game name="Pokemon LeafGreen (US)"  gamecode="BPGE"/>
+  </core>
+  
+  <!--Base Offsets for items-->
+  <items>
+    <offset name="base" gamecode="AXVE" offset="0x083C5564" />
+    <offset name="base" gamecode="AXPE" offset="0x083C55BC" />
+    <offset name="base" gamecode="BPEE" offset="0x085839A0" />
+    <offset name="base" gamecode="BPRE" offset="0x083DB028" />
+    <offset name="base" gamecode="BPGE" offset="0x083DAE64" />
+    
+  <!--Item struct offsets-->
+    <item>
+      <offset name="name"           size="0x0E" offset="0x00"/>
+      <offset name="index"          size="0x02" offset="0x0E"/>
+      <offset name="price"          size="0x02" offset="0x10"/>
+      <offset name="hold_effect"    size="0x01" offset="0x12"/>
+      <offset name="param"          size="0x01" offset="0x13"/>
+      <offset name="desc_pointer"   size="0x04" offset="0x14"/>
+      <offset name="mystery_value"  size="0x02" offset="0x18"/>
+      <offset name="pocket"         size="0x01" offset="0x1A"/>
+      <offset name="type"           size="0x01" offset="0x1B"/>
+      <offset name="pointer_fuc"    size="0x04" offset="0x1C"/>
+      <offset name="battle_usage"   size="0x04" offset="0x20"/>
+      <offset name="pointer_buc"    size="0x04" offset="0x24"/>
+      <offset name="extra_param"    size="0x04" offset="0x28"/>
+    </item>
+  
+  </items>
+
+  <encoding-table>
+    <!--Encoding Data-->
+    <encoding hex="0x00" ascii=" "/>
+    <encoding hex="0xBB" ascii="A"/>
+    <encoding hex="0xBC" ascii="B"/>
+    <encoding hex="0xBD" ascii="C"/>
+    <encoding hex="0xBE" ascii="D"/>
+    <encoding hex="0xBF" ascii="E"/>
+
+    <encoding hex="0xC0" ascii="F"/>
+    <encoding hex="0xC1" ascii="G"/>
+    <encoding hex="0xC2" ascii="H"/>
+    <encoding hex="0xC3" ascii="I"/>
+    <encoding hex="0xC4" ascii="J"/>
+    <encoding hex="0xC5" ascii="K"/>
+    <encoding hex="0xC6" ascii="L"/>
+    <encoding hex="0xC7" ascii="M"/>
+    <encoding hex="0xC8" ascii="N"/>
+    <encoding hex="0xC9" ascii="O"/>
+    <encoding hex="0xCA" ascii="P"/>
+    <encoding hex="0xCB" ascii="Q"/>
+    <encoding hex="0xCC" ascii="R"/>
+    <encoding hex="0xCD" ascii="S"/>
+    <encoding hex="0xCE" ascii="T"/>
+    <encoding hex="0xCF" ascii="U"/>
+
+    <encoding hex="0xD0" ascii="V"/>
+    <encoding hex="0xD1" ascii="W"/>
+    <encoding hex="0xD2" ascii="X"/>
+    <encoding hex="0xD3" ascii="Y"/>
+    <encoding hex="0xD4" ascii="Z"/>
+    <encoding hex="0xD5" ascii="a"/>
+    <encoding hex="0xD6" ascii="b"/>
+    <encoding hex="0xD7" ascii="c"/>
+    <encoding hex="0xD0" ascii="d"/>
+    <encoding hex="0xD0" ascii="e"/>
+    <encoding hex="0xD0" ascii="f"/>
+    <encoding hex="0xD0" ascii="g"/>
+    <encoding hex="0xD0" ascii="h"/>
+    <encoding hex="0xD0" ascii="i"/>
+    <encoding hex="0xD0" ascii="j"/>
+    <encoding hex="0xD0" ascii="k"/>
+
+    <encoding hex="0xE0" ascii="l"/>
+    <encoding hex="0xE1" ascii="m"/>
+    <encoding hex="0xE2" ascii="n"/>
+    <encoding hex="0xE3" ascii="o"/>
+    <encoding hex="0xE4" ascii="p"/>
+    <encoding hex="0xE5" ascii="q"/>
+    <encoding hex="0xE6" ascii="r"/>
+    <encoding hex="0xE7" ascii="s"/>
+    <encoding hex="0xE8" ascii="t"/>
+    <encoding hex="0xE9" ascii="u"/>
+    <encoding hex="0xEA" ascii="v"/>
+    <encoding hex="0xEB" ascii="w"/>
+    <encoding hex="0xEC" ascii="x"/>
+    <encoding hex="0xED" ascii="y"/>
+    <encoding hex="0xEE" ascii="z"/>
+    <encoding hex="0xEF" ascii=">"/>
+
+    <encoding hex="0xA1" ascii="0"/>
+    <encoding hex="0xA2" ascii="1"/>
+    <encoding hex="0xA3" ascii="2"/>
+    <encoding hex="0xA4" ascii="3"/>
+    <encoding hex="0xA5" ascii="4"/>
+    <encoding hex="0xA6" ascii="5"/>
+    <encoding hex="0xA7" ascii="6"/>
+    <encoding hex="0xA8" ascii="7"/>
+    <encoding hex="0xA9" ascii="8"/>
+    <encoding hex="0xAA" ascii="9"/>
+    <encoding hex="0xAB" ascii="!"/>
+    <encoding hex="0xAC" ascii="?"/>
+    
+  </encoding-table>
+
+
+</data>
