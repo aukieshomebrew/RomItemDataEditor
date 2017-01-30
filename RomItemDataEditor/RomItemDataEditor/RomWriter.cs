@@ -1,92 +1,135 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace RomItemDataEditor
 {
-    class RomWriter
+    class RomWriter : RomEditor
     {
 
-        private BinaryWriter binarywriter;
-        private BinaryReader binaryreader;
-        private XMLParser xmlparser;
-
-       
-
-        private string rompath;
-        //private string parserpath;
-
-        public RomWriter(string rompath, string parserpath)
+        public RomWriter(string rompath, string xmlparserpath)
         {
             this.rompath = rompath;
-            this.xmlparser = new XMLParser(parserpath);
-  
+            this.xmlparserpath = xmlparserpath;
+            rompaths = rompath;
         }
 
-
-        public bool SetItemNameByIndex(int i, string itemname)
+        ~RomWriter()
         {
- 
-            xmlparser.Open();
-            string gamecode = GetGameCode();
+            CloseXMLParser();
+            CloseRomWriter();
+            CloseRomReader();
+        }
+
+        public override bool CloseXMLParser()
+        {
+            if (xmlparser == null)
+                return true;
+            xmlparser.Close();
+            xmlparser = null;
+            return true;
+        }
+
+        public override bool CloseRomReader()
+        {
+            if (binaryreader == null)
+                return true;
+            binaryreader.Close();
+            binaryreader = null;
+            return true;
+        }
+
+        public override bool CloseRomWriter()
+        {
+            if (binarywriter == null)
+                return true;
+            binarywriter.Close();
+            binarywriter = null;
+            return true;
+        }
+
+        public override bool OpenRomReader()
+        {
+            if (!File.Exists(rompath))
+                return false;
+            else
+            {
+                binaryreader = new BinaryReader(File.OpenRead(rompath));
+                return true;
+            }
+        }
+
+        public override bool OpenRomWriter()
+        {
+            if (!File.Exists(rompath))
+                return false;
+            else
+            {
+                binarywriter = new BinaryWriter(File.OpenWrite(rompath));
+                return true;
+            }
+
+        }
+
+        public override bool OpenXMLParser()
+        {
+            if (!File.Exists(xmlparserpath))
+                return false;
+            else
+            {
+                xmlparser = new XMLParser(xmlparserpath);
+                xmlparser.Open();
+                return true;
+            }
+        }
+
+        public bool SetItemNameByIndex(int i, string newname)
+        {
+           
+            string  gamecode = GetGameCode();
+     
+            OpenXMLParser();
+
             long globaloffset = xmlparser.GetGlobalItemOffsetByGameCode(gamecode);
             int offset = xmlparser.GetItemOffsetByName("name");
             int size = xmlparser.GetItemDataSizeByName("name");
 
             long pos = globaloffset + offset + (i * 0x2C) - 0x8000000;
-
             List<byte> array = new List<byte>();
+            List<byte> empty = new List<byte>();
 
-            StringBuilder str = new StringBuilder();
-            for (int m = 0; m < size; m++)
+            for (int t = 0; t < size; t++)
             {
-                if (m + 1 > itemname.Length)
-                {
-                    array.Add(0x00);
-                    str.Append(0x00);
-                }
-                    
-                else
-                {
-                    array.Add(xmlparser.GetHexByAscii(itemname[m]));
-                    str.Append(xmlparser.GetHexByAscii(itemname[m]));
-                }
-                    
+                empty.Add(0x00);
             }
-            
+            for (int m = 0; m < newname.Length; m++)
+            {
+                array.Add(xmlparser.GetHexByAscii(newname[m]));
+            }
 
-            binarywriter = new BinaryWriter(File.Open(rompath, FileMode.Open));
+            OpenRomWriter();
+            binarywriter.BaseStream.Position = pos;
+            binarywriter.Write(empty.ToArray(), 0, empty.ToArray().Length);
 
-            binarywriter.BaseStream.Seek(pos, SeekOrigin.Begin);
-            
-           
-            Console.WriteLine(str.ToString());
-            binarywriter.Write(array.ToArray());
+            binarywriter.BaseStream.Position = pos;
+            binarywriter.Write(array.ToArray(), 0, array.ToArray().Length);
 
+            if (xmlparser == null)
+                return true;
+            else
+                CloseXMLParser();
 
-            xmlparser.Close();
-            binarywriter.Close();
-            binarywriter = null;
+            if (binarywriter == null)
+                return true;
+            else
+                CloseRomWriter();
+
 
             return true;
+
         }
 
-        public string GetGameCode()
-        {
-
-            binaryreader = new BinaryReader(File.Open(rompath, FileMode.Open));
-
-            string ret;
-            binaryreader.BaseStream.Seek(0xAC, SeekOrigin.Begin);
-
-
-            ret = Encoding.UTF8.GetString(binaryreader.ReadBytes(4));
-
-
-            binaryreader.Close();
-            binaryreader = null;
-            return ret;
-        }
     }
 }

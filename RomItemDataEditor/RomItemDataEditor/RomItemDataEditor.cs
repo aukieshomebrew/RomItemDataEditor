@@ -56,6 +56,7 @@ namespace RomItemDataEditor
                         RomReader romreader = new RomReader(opt.ArgRomPath, opt.ArgDataPath);
                         string name = romreader.GetItemNameByIndex(opt.ArgIndex);
                         po.PrintStrValue(name, "name");
+                        
                     }
                     else
                     {
@@ -69,13 +70,21 @@ namespace RomItemDataEditor
                     if(!opt.ArgGetName)
                     {
 
+                        RomReader romreader1 = new RomReader(opt.ArgRomPath, opt.ArgDataPath);
+                        string name1 = romreader1.GetItemNameByIndex(opt.ArgIndex);
+                        po.PrintStrValue(name1, "oldname");
+                        romreader1 = null;
+                        
+
                         RomWriter romwriter = new RomWriter(opt.ArgRomPath, opt.ArgDataPath);
                         romwriter.SetItemNameByIndex(opt.ArgIndex, opt.ArgSetName);
                         romwriter = null;
 
-                        RomReader romreader = new RomReader(opt.ArgRomPath, opt.ArgDataPath);
-                        string name = romreader.GetItemNameByIndex(opt.ArgIndex);
-                        po.PrintStrValue(name, "newname");
+                        RomReader romreader2 = new RomReader(opt.ArgRomPath, opt.ArgDataPath);
+                        string name2 = romreader2.GetItemNameByIndex(opt.ArgIndex);
+                        po.PrintStrValue(name2, "newname");
+                        romreader2 = null;
+                        
                     }
                     else
                     {

@@ -1,90 +1,110 @@
-﻿/*
- *  RomReader.cs    Made by: Aukie's Homebrew 
- *  This class accesses the ROM file and extract data from it.
- */
-
-
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+
 namespace RomItemDataEditor
 {
-
-
-    class RomReader
+    class RomReader : RomEditor
     {
-        private BinaryReader br;
-        private XMLParser xp;
-
-        string rp;
-        string pp;
-        public RomReader(string rompath, string parserpath)
+        public RomReader(string rompath, string xmlparserpath)
         {
-            rp = rompath;
-            
-            this.xp = new XMLParser(parserpath);
-            this.pp = parserpath;
+            this.rompath = rompath;
+            this.xmlparserpath = xmlparserpath;
+            this.rompaths = rompath;
+        }
+
+        ~RomReader()
+        {
+            CloseRomReader();
+            CloseRomWriter();
+            CloseXMLParser();
+        }
+
+        public override bool OpenRomReader()
+        {
+            if (!File.Exists(rompath))
+                return false;
+            else
+            {
+                binaryreader = new BinaryReader(File.OpenRead(rompath));
+                return true;
+            }
+        }
+
+        public override bool OpenRomWriter()
+        {
+            if (!File.Exists(rompath))
+                return false;
+            else
+            {
+                binaryreader = new BinaryReader(File.OpenRead(rompath));
+                return true;
+            }
+        }
+
+        public override bool OpenXMLParser()
+        {
+            if (!File.Exists(xmlparserpath))
+                return false;
+            else
+            {
+                xmlparser = new XMLParser(xmlparserpath);
+                xmlparser.Open();
+                return true;
+            }
         }
 
         public string GetItemNameByIndex(int i)
         {
-            xp.Open();
-            string gamecode = GetGameCode();            
-            long globaloffset = xp.GetGlobalItemOffsetByGameCode(gamecode);
-            int offset = xp.GetItemOffsetByName("name");
-            int size = xp.GetItemDataSizeByName("name");
-            long pos = globaloffset + offset + (i * 0x2C) - 0x8000000;
-
-           // Console.WriteLine("Game: {4}\nMemory address: 0x{0:X}:\nBase Offset: 0x{1:X}\nStruct Offset: 0x{2:X}\nSize: 0x{3:X}", pos, globaloffset, offset, size, xp.GetNameByGameCode(gamecode));
-
-            br = new BinaryReader(File.Open(rp, FileMode.Open));
-            br.BaseStream.Seek(pos, SeekOrigin.Begin);
-
-
-            string ret = BytesToAscii(br.ReadBytes(size));
-
-            if (string.IsNullOrWhiteSpace(ret))
-            {
-                Console.WriteLine("Only whitespaces detected");
-                br.Close();
-                xp.Close();
-                br = null;
-                return string.Empty;
-            }
-
-            br.Close();
-            xp.Close();
             
-            br = null;
-            return ret;
+
+            string ret = string.Empty;
+
+            string gamecode = GetGameCode();
+
+            OpenRomReader();
+            OpenXMLParser();
+
             
+
+            long globaloffset = xmlparser.GetGlobalItemOffsetByGameCode(gamecode);
+            int offset = xmlparser.GetItemOffsetByName("name");
+            int size = xmlparser.GetItemDataSizeByName("name");
+
+            long pos = globaloffset + offset + (0x2C * i) - 0x8000000;
+
+            
+
+            binaryreader.BaseStream.Seek(pos, SeekOrigin.Begin);
+            ret = BytesToString(binaryreader.ReadBytes(size));
+
+            CloseXMLParser();
+            CloseRomReader();
+            
+       
+            return ret; 
+
         }
 
-        public int GetItemStructValueByIndex(int i, string structname)
+        public int GetItemStructValue(int i, string structname)
         {
-            xp.Open();
+            OpenXMLParser();
+            OpenRomReader();
+
             string gamecode = GetGameCode();
-            long globaloffset = xp.GetGlobalItemOffsetByGameCode(gamecode);
-            int offset = xp.GetItemOffsetByName(structname);
-            int size = xp.GetItemDataSizeByName(structname);
+            long globaloffset = xmlparser.GetGlobalItemOffsetByGameCode(gamecode);
+            int offset = xmlparser.GetItemOffsetByName(structname);
+            int size = xmlparser.GetItemDataSizeByName(structname);
             long pos = globaloffset + offset + (i * 0x2C) - 0x8000000;
 
-            br = new BinaryReader(File.Open(rp, FileMode.Open));
-            br.BaseStream.Seek(pos, SeekOrigin.Begin);
+            
 
-            byte[] bytes = br.ReadBytes(size);
-            StringBuilder strbuilder = new StringBuilder();
+            byte[] bytes = binaryreader.ReadBytes(size);
 
-            foreach(byte j in bytes)
-            {
-                strbuilder.Append(j);
-            }
-            //return Int32.Parse(strbuilder.ToString());
-            //if (BitConverter.IsLittleEndian)
-                //Array.Reverse(bytes);
+            int ret = 0;
 
-            int ret = 0 ;
             if (size == 1)
                 ret = bytes[0];
             if (size == 2)
@@ -92,46 +112,54 @@ namespace RomItemDataEditor
             if (size == 4)
                 ret = BitConverter.ToInt32(bytes, 0);
 
-            br.Close();
-            br = null;
-            xp.Close();
-            return ret;
-        }
+            CloseRomReader();
+            CloseXMLParser();
 
-        public string GetGameCode()
-        {
-
-            br = new BinaryReader(File.Open(rp, FileMode.Open));
-
-            string ret;
-            br.BaseStream.Seek(0xAC, SeekOrigin.Begin);
-            
-
-            ret = Encoding.UTF8.GetString(br.ReadBytes(4));
-            br.Close();
-            br = null;
             return ret;
         }
 
         public string GetGameName()
         {
-            string gamecode = GetGameCode();
-            return xp.GetNameByGameCode(gamecode);
+            return xmlparser.GetNameByGameCode(GetGameCode());
         }
 
-
-
-        private string BytesToAscii(byte[] bytes)
+        private string BytesToString(byte[] bytes)
         {
-            StringBuilder stringbuilder = new StringBuilder();
-            foreach (byte character in bytes)
+            StringBuilder str = new StringBuilder();
+
+            foreach(byte i in bytes)
             {
-                
-                stringbuilder.Append(xp.GetAsciiByHex(character));
+                str.Append(xmlparser.GetAsciiByHex(i));
             }
 
-            return stringbuilder.ToString();
+            return str.ToString();
         }
 
+        public override bool CloseXMLParser()
+        {
+            if (xmlparser == null)
+                return true;
+            xmlparser.Close();
+            xmlparser = null;
+            return true;
+        }
+
+        public override bool CloseRomReader()
+        {
+            if (binaryreader == null)
+                return true;
+            binaryreader.Close();
+            binaryreader = null;
+            return true;
+        }
+
+        public override bool CloseRomWriter()
+        {
+            if (binarywriter == null)
+                return true;
+            binarywriter.Close();
+            binarywriter = null;
+            return true;
+        }
     }
 }

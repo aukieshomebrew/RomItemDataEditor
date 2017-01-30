@@ -53,6 +53,7 @@ namespace RomItemDataEditor
 
         public string GetNameByGameCode(string gamecode)
         {
+
             IEnumerable<XElement> games = core.Descendants("game");
             string ret = "";
             foreach (XElement game in games)
