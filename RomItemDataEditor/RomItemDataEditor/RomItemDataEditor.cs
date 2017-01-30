@@ -9,6 +9,7 @@ using System;
 using System.IO;
 using CommandLine;
 using CommandLine.Text;
+using System.Collections.Generic;
 
 namespace RomItemDataEditor
 {
@@ -211,7 +212,7 @@ namespace RomItemDataEditor
         [Option("set-value", Required =false, HelpText = "Struct name to set value to.")]
         public string ArgSetValueName { get; set; }
 
-        [Option("set-value-int", Required = false, HelpText="Struct value to set value to", DefaultValue =0)]
+        [ValueList(typeof(int), MaximumElements = 1)]
         public int ArgSetValueInt { get; set; }
         
 
@@ -226,7 +227,7 @@ namespace RomItemDataEditor
                 AddDashesToOption = true
 
             };
-            help.AddPreOptionsLine("Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>] [--index-number <index number>] [--get-value <datamember name>] [--get-name] [--set-name <new name>] [--set-value <value-name>] [--set-value-int <value-integer>] [--print-hex]");
+            help.AddPreOptionsLine("Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>] [--index-number <index number>] [--get-value <datamember name>] [--get-name] [--set-name <new name>] [--set-value <value-name> <integer>] [--print-hex]");
             help.AddOptions(this);
             return help;
         }
