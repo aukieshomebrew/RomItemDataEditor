@@ -47,14 +47,14 @@ namespace RomItemDataEditor
                 }
             }
 
-        ;
+        
 
         }
 
         public string GetNameByGameCode(string gamecode)
         {
             IEnumerable<XElement> games = core.Descendants("game");
-            string ret = string.Empty;
+            string ret = "";
             foreach (XElement game in games)
             {
 
@@ -179,6 +179,37 @@ namespace RomItemDataEditor
             }
 
             return ret;
+        }
+
+        public byte GetHexByAscii(char c)
+        {
+            IEnumerable<XElement> table = root.Element("encoding-table").Descendants("encoding");
+            byte ret = 0;
+
+            foreach(XElement character in table)
+            {
+                if(Char.Parse(character.Attribute("ascii").Value) == c)
+                {
+                    ret = Byte.Parse(character.Attribute("hex").Value.Substring(2), NumberStyles.HexNumber);
+                    break;
+                }
+                else
+                {
+                    ret = 0;
+                    continue;
+                }
+            }
+
+            return ret;
+        }
+
+        public void Close()
+        {
+            data = null;
+
+            root = null;
+            core = null;
+            items = null;
         }
 
 

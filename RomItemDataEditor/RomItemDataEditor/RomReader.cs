@@ -24,13 +24,12 @@ namespace RomItemDataEditor
             rp = rompath;
             
             this.xp = new XMLParser(parserpath);
-            this.xp.Open();
             this.pp = parserpath;
         }
 
         public string GetItemNameByIndex(int i)
         {
-            
+            xp.Open();
             string gamecode = GetGameCode();            
             long globaloffset = xp.GetGlobalItemOffsetByGameCode(gamecode);
             int offset = xp.GetItemOffsetByName("name");
@@ -49,11 +48,14 @@ namespace RomItemDataEditor
             {
                 Console.WriteLine("Only whitespaces detected");
                 br.Close();
+                xp.Close();
                 br = null;
                 return string.Empty;
             }
 
             br.Close();
+            xp.Close();
+            
             br = null;
             return ret;
             
@@ -61,6 +63,7 @@ namespace RomItemDataEditor
 
         public int GetItemStructValueByIndex(int i, string structname)
         {
+            xp.Open();
             string gamecode = GetGameCode();
             long globaloffset = xp.GetGlobalItemOffsetByGameCode(gamecode);
             int offset = xp.GetItemOffsetByName(structname);
@@ -89,12 +92,15 @@ namespace RomItemDataEditor
             if (size == 4)
                 ret = BitConverter.ToInt32(bytes, 0);
 
-
+            br.Close();
+            br = null;
+            xp.Close();
             return ret;
         }
 
-        private string GetGameCode()
+        public string GetGameCode()
         {
+
             br = new BinaryReader(File.Open(rp, FileMode.Open));
 
             string ret;
@@ -109,7 +115,8 @@ namespace RomItemDataEditor
 
         public string GetGameName()
         {
-            return xp.GetNameByGameCode(GetGameCode());
+            string gamecode = GetGameCode();
+            return xp.GetNameByGameCode(gamecode);
         }
 
 

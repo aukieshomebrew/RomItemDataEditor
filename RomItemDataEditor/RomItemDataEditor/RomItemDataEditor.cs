@@ -29,7 +29,9 @@ namespace RomItemDataEditor
 
             if (!cmd.ParseArguments(args, opt))
             {
-               Console.WriteLine( opt.GetUsage());
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine( opt.GetUsage());
+                Console.ResetColor();
                 return 1;
             }
             else
@@ -37,42 +39,50 @@ namespace RomItemDataEditor
 
                 if (!File.Exists(opt.ArgRomPath))
                 {
-                    Console.WriteLine("Cannot find rom file");
+                    po.PrintError("Cannot find rom file");
 
                     return 1;
                 }
                 else if (!File.Exists(opt.ArgDataPath))
                 {
-                    Console.WriteLine("Cannot find data file");
+                    po.PrintError("Cannot find data file");
                     return 1;
                 }
 
-                
-
-                RomReader rr = new RomReader(opt.ArgRomPath, opt.ArgDataPath);
-
-                
-
-                po.PrintStrValue(rr.GetGameName(), "Game");
-                
-                if(opt.ArgGetName)
+                if(string.IsNullOrWhiteSpace(opt.ArgSetName))
                 {
-                    po.PrintStrValue(rr.GetItemNameByIndex(opt.ArgIndex), "Name");
-                }
-                else
-                {
-                    
-                    if (opt.ArgHexPrint)
+                    if(opt.ArgGetName)
                     {
-                        po.PrintHexValue(rr.GetItemStructValueByIndex(opt.ArgIndex, opt.ArgStructName), opt.ArgStructName);
+                        RomReader romreader = new RomReader(opt.ArgRomPath, opt.ArgDataPath);
+                        string name = romreader.GetItemNameByIndex(opt.ArgIndex);
+                        po.PrintStrValue(name, "name");
                     }
                     else
                     {
-                        po.PrintDecValue(rr.GetItemStructValueByIndex(opt.ArgIndex, opt.ArgStructName), opt.ArgStructName);
+                        po.PrintError("Please choose either a set or a get.");
+                        return 1;
+                    }
+                    
+                }
+                else
+                {
+                    if(!opt.ArgGetName)
+                    {
+
+                        RomWriter romwriter = new RomWriter(opt.ArgRomPath, opt.ArgDataPath);
+                        romwriter.SetItemNameByIndex(opt.ArgIndex, opt.ArgSetName);
+                        romwriter = null;
+
+                        RomReader romreader = new RomReader(opt.ArgRomPath, opt.ArgDataPath);
+                        string name = romreader.GetItemNameByIndex(opt.ArgIndex);
+                        po.PrintStrValue(name, "newname");
+                    }
+                    else
+                    {
+                        po.PrintError("Please choose either a set or a get.");
+                        return 1;
                     }
                 }
-
-
 
                 return 0;
 
@@ -102,6 +112,13 @@ namespace RomItemDataEditor
             Console.ResetColor();
         }
 
+        public void PrintError(string err)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(err);
+            Console.ResetColor();
+        }
+
 
 
     }
@@ -126,6 +143,9 @@ namespace RomItemDataEditor
         [Option('n', "get-name", Required = false, HelpText = "Get item name.")]
         public bool ArgGetName { get; set; }
 
+        [Option("set-name", Required = false, HelpText = "Set item name.")]
+        public string ArgSetName { get; set; }
+
         [HelpOption]
         public string GetUsage()
         {
@@ -137,7 +157,7 @@ namespace RomItemDataEditor
                 AddDashesToOption = true
 
             };
-            help.AddPreOptionsLine("Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>] [--index-number <index number>] [--get-value <datamember name>] [--print-hex]");
+            help.AddPreOptionsLine("Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>] [--index-number <index number>] [--get-value <datamember name>] [--get-name] [--set-name <new name>][--print-hex]");
             help.AddOptions(this);
             return help;
         }
