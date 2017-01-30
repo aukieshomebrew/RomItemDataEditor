@@ -238,13 +238,13 @@ namespace RomItemDataEditor
         {
             HelpText help = new HelpText
             {
-                Heading = new HeadingInfo("romitemdataeditor", "0.1"),
+                Heading = new HeadingInfo("romitemdataeditor", "0.2"),
                 Copyright = new CopyrightInfo("Aukie's Homebrew", 2017),
                 AdditionalNewLineAfterOption = true,
                 AddDashesToOption = true
 
             };
-            help.AddPreOptionsLine("Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>] [--index-number <index number>] [--get-value <datamember name>] [--get-name] [--set-name <new name>] [--print-hex]");
+            help.AddPreOptionsLine("Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>] [--index-number <index number>] [--get-value <datamember name>] [--get-name] [--set-name <new name>] [--set-value <value-name>] [--set-value-int <value-integer>] [--print-hex]");
             help.AddOptions(this);
             return help;
         }
