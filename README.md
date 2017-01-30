@@ -15,7 +15,7 @@ Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>]
 
   -i, --index-number    Required. (Default: 0) Index of the item.
 
-  -d, --data-name       Struct name to get value from.
+  -v, --get-value       Struct name to get value from.
 
   --print-hex           Print hexidecimal value.
 
