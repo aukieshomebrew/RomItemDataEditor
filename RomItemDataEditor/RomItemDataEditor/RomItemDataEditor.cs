@@ -95,7 +95,7 @@ namespace RomItemDataEditor
         {
 
             RomReader rr = new RomReader(opt.ArgRomPath, opt.ArgDataPath);
-            log.PrintWarning(rr.GetGameCode());
+            
             
             if (opt.ArgGetName)
             {
