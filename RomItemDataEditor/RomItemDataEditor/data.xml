@@ -1,9 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
-<!--Made by: Aukie's Homebrew-->
-<!--Specify the offset, gamecodes, encodingtables in this file.-->
-
-
 <data>
   <core>
     <game name="Pokemon Ruby (US)"       gamecode="AXVE"/>
@@ -35,7 +30,7 @@
       <offset name="pointer_buc"    size="0x04" offset="0x24"/>
       <offset name="extra_param"    size="0x04" offset="0x28"/>
     </item>
-  
+
   </items>
 
   <encoding-table>
@@ -72,14 +67,14 @@
     <encoding hex="0xD5" ascii="a"/>
     <encoding hex="0xD6" ascii="b"/>
     <encoding hex="0xD7" ascii="c"/>
-    <encoding hex="0xD0" ascii="d"/>
-    <encoding hex="0xD0" ascii="e"/>
-    <encoding hex="0xD0" ascii="f"/>
-    <encoding hex="0xD0" ascii="g"/>
-    <encoding hex="0xD0" ascii="h"/>
-    <encoding hex="0xD0" ascii="i"/>
-    <encoding hex="0xD0" ascii="j"/>
-    <encoding hex="0xD0" ascii="k"/>
+    <encoding hex="0xD8" ascii="d"/>
+    <encoding hex="0xD9" ascii="e"/>
+    <encoding hex="0xDA" ascii="f"/>
+    <encoding hex="0xDB" ascii="g"/>
+    <encoding hex="0xDC" ascii="h"/>
+    <encoding hex="0xDD" ascii="i"/>
+    <encoding hex="0xDE" ascii="j"/>
+    <encoding hex="0xDF" ascii="k"/>
 
     <encoding hex="0xE0" ascii="l"/>
     <encoding hex="0xE1" ascii="m"/>
@@ -97,7 +92,7 @@
     <encoding hex="0xED" ascii="y"/>
     <encoding hex="0xEE" ascii="z"/>
     <encoding hex="0xEF" ascii=">"/>
-    
+
     <encoding hex="0xA1" ascii="0"/>
     <encoding hex="0xA2" ascii="1"/>
     <encoding hex="0xA3" ascii="2"/>
@@ -110,9 +105,7 @@
     <encoding hex="0xAA" ascii="9"/>
     <encoding hex="0xAB" ascii="!"/>
     <encoding hex="0xAC" ascii="?"/>
-    <encoding hex="0xAD" ascii="."/>
-    
-    
+
   </encoding-table>
 
 
