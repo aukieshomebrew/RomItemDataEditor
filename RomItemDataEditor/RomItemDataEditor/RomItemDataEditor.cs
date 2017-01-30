@@ -15,7 +15,6 @@ namespace RomItemDataEditor
     class RomItemDataEditor
     {
 
-        public string val;
 
 
         static int Main(string[] args)
