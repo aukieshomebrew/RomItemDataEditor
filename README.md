@@ -8,8 +8,7 @@ romitemdataeditor 0.2
 Copyright (C) 2017 Aukie's Homebrew
 Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>]
 [--index-number <index number>] [--get-value <datamember name>] [--get-name]
-[--set-name <new name>] [--set-value <value-name>] [--set-value-int
-<value-integer>] [--print-hex]
+[--set-name <new name>] [--set-value <value-name> <integer>] [--print-hex]
 
   -f, --rom-file        Required. Path of the GBA ROM.
 
@@ -17,17 +16,17 @@ Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>]
 
   -i, --index-number    Required. Index of the item.
 
-  -v, --get-value       Struct name to get value from.
-
   --print-hex           Print hexidecimal value.
 
   -n, --get-name        Get item name.
+
+  -v, --get-value       Struct name to get value from.
 
   --set-name            Set item name.
 
   --set-value           Struct name to set value to.
 
-  --set-value-int       (Default: 0) Struct value to set value to
+  --set-value-int       New value for the --set-value option
 
   --help                Display this help screen.
   
