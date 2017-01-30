@@ -75,8 +75,6 @@ namespace RomItemDataEditor
 
             long pos = globaloffset + offset + (0x2C * i) - 0x8000000;
 
-            
-
             binaryreader.BaseStream.Seek(pos, SeekOrigin.Begin);
             ret = BytesToString(binaryreader.ReadBytes(size));
 
@@ -91,16 +89,20 @@ namespace RomItemDataEditor
         public int GetItemStructValue(int i, string structname)
         {
             OpenXMLParser();
-            OpenRomReader();
+            
 
             string gamecode = GetGameCode();
+
+            OpenRomReader();
+
             long globaloffset = xmlparser.GetGlobalItemOffsetByGameCode(gamecode);
             int offset = xmlparser.GetItemOffsetByName(structname);
             int size = xmlparser.GetItemDataSizeByName(structname);
             long pos = globaloffset + offset + (i * 0x2C) - 0x8000000;
 
-            
 
+            binaryreader.BaseStream.Position = pos;
+            
             byte[] bytes = binaryreader.ReadBytes(size);
 
             int ret = 0;

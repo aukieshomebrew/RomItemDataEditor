@@ -131,5 +131,46 @@ namespace RomItemDataEditor
 
         }
 
+        public bool SetItemStructValue(int i, string valuename, int newvalue)
+        {
+            string gamecode = GetGameCode();
+
+            OpenXMLParser();
+            OpenRomWriter();
+
+            long globaloffset = xmlparser.GetGlobalItemOffsetByGameCode(gamecode);
+            int offset = xmlparser.GetItemOffsetByName(valuename);
+            int size = xmlparser.GetItemDataSizeByName(valuename);
+
+            long pos = globaloffset + offset + (0x2C * i) - 0x8000000;
+
+            byte[] val = BitConverter.GetBytes(newvalue);
+
+            if(size == 1)
+            {
+                binarywriter.BaseStream.Position = pos;
+                binarywriter.Write(val[0]);
+            }
+            else
+            {
+                binarywriter.BaseStream.Position = pos;
+                binarywriter.Write(val, 0, size);
+            }
+
+            if (xmlparser == null)
+                return true;
+            else
+                CloseXMLParser();
+
+            if (binarywriter == null)
+                return true;
+            else
+                CloseRomWriter();
+
+
+            return true;
+
+        }
+
     }
 }

@@ -108,6 +108,8 @@
     <encoding hex="0xAB" ascii="!"/>
     <encoding hex="0xAC" ascii="?"/>
 
+    <encoding hex="0x1B" ascii="é"/>
+
   </encoding-table>
 
 
