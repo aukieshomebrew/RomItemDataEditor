@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!--Created by: Aukie's Homebrew-->
+
 <data>
   <core>
     <game name="Pokemon Ruby (US)"       gamecode="AXVE"/>
@@ -111,6 +114,5 @@
     <encoding hex="0x1B" ascii="é"/>
 
   </encoding-table>
-
-
+  
 </data>

@@ -1,4 +1,6 @@
-﻿
+﻿/*
+ *  Created by Aukie's Homebrew
+ */ 
 
 using System.IO;
 using System.Text;

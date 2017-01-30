@@ -1,7 +1,7 @@
 ﻿/*
- *  XmlParser.cs     Made by: Aukie's Hombrew
- *  Data in the xml file can be accesses with this class
+ *  Created by Aukie's Homebrew
  */
+
 
 
 using System;
