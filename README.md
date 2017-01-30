@@ -4,22 +4,30 @@ Get data from the itemdata struct in various gen 3 Pokemon game.
 
 How to use it:
 
-romitemdataeditor 0.0.2
+romitemdataeditor 0.2
 Copyright (C) 2017 Aukie's Homebrew
 Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>]
-[--index-number <index number>] [--data-name <datamember name>] [--print-hex]
+[--index-number <index number>] [--get-value <datamember name>] [--get-name]
+[--set-name <new name>] [--set-value <value-name>] [--set-value-int
+<value-integer>] [--print-hex]
 
   -f, --rom-file        Required. Path of the GBA ROM.
 
   -x, --xml-file        (Default: data.xml) Path of the XML file.
 
-  -i, --index-number    Required. (Default: 0) Index of the item.
+  -i, --index-number    Required. Index of the item.
 
   -v, --get-value       Struct name to get value from.
 
   --print-hex           Print hexidecimal value.
 
   -n, --get-name        Get item name.
+
+  --set-name            Set item name.
+
+  --set-value           Struct name to set value to.
+
+  --set-value-int       (Default: 0) Struct value to set value to
 
   --help                Display this help screen.
   
