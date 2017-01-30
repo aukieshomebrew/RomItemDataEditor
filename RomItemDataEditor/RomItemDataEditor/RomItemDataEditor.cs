@@ -197,24 +197,23 @@ namespace RomItemDataEditor
         [Option('i', "index-number", Required = true, HelpText = "Index of the item.")]
         public int ArgIndex { get; set; }
 
-        [Option('v', "get-value", Required = false, HelpText = "Struct name to get value from.")]
-        public string ArgGetValue { get; set; }
-
         [Option("print-hex", Required = false, HelpText = "Print hexidecimal value.")]
         public bool ArgHexPrint { get; set; }
 
-        [Option('n', "get-name", Required = false, HelpText = "Get item name.")]
+        [Option('n', "get-name",MutuallyExclusiveSet = "get-name", Required = false, HelpText = "Get item name.")]
         public bool ArgGetName { get; set; }
 
-        [Option("set-name", Required = false, HelpText = "Set item name.")]
+        [Option('v', "get-value", Required = false, MutuallyExclusiveSet = "get-value", HelpText = "Struct name to get value from.")]
+        public string ArgGetValue { get; set; }
+
+        [Option("set-name", Required = false, MutuallyExclusiveSet = "set-name", HelpText = "Set item name.")]
         public string ArgSetName { get; set; }
 
-        [Option("set-value", Required =false, HelpText = "Struct name to set value to.")]
+        [Option("set-value", Required =false, MutuallyExclusiveSet = "set-value", HelpText = "Struct name to set value to.")]
         public string ArgSetValueName { get; set; }
-
-        [ValueList(typeof(List<int>), MaximumElements = 1)]
-        public IList<int> ArgSetValueInt { get; set; }
         
+        [Option("set-value-int", Required =false, MutuallyExclusiveSet ="set-value", HelpText = "New value for the --set-value option" )]
+        public int ArgSetValueInt { get; set; }
 
         [HelpOption]
         public string GetUsage()
