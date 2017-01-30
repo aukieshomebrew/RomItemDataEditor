@@ -148,7 +148,7 @@ namespace RomItemDataEditor
             else if (!string.IsNullOrWhiteSpace(opt.ArgSetValueName))
             {
                 RomReader romreader = new RomReader(opt.ArgRomPath, opt.ArgDataPath);
-                if(opt.ArgSetValueInt == 0)
+                if(opt.ArgSetValueInt[0] == 0)
                 {
                     log.PrintWarning("'--set-value-int' not set: default value is 0");
                 }
@@ -163,7 +163,7 @@ namespace RomItemDataEditor
                 
 
                 RomWriter romwriter = new RomWriter(opt.ArgRomPath, opt.ArgDataPath);
-                romwriter.SetItemStructValue(opt.ArgIndex, opt.ArgSetValueName, opt.ArgSetValueInt);
+                romwriter.SetItemStructValue(opt.ArgIndex, opt.ArgSetValueName, opt.ArgSetValueInt[0]);
 
                 if (opt.ArgHexPrint)
                 {
@@ -212,8 +212,8 @@ namespace RomItemDataEditor
         [Option("set-value", Required =false, HelpText = "Struct name to set value to.")]
         public string ArgSetValueName { get; set; }
 
-        [ValueList(typeof(int), MaximumElements = 1)]
-        public int ArgSetValueInt { get; set; }
+        [ValueList(typeof(List<int>), MaximumElements = 1)]
+        public List<int> ArgSetValueInt { get; set; }
         
 
         [HelpOption]
