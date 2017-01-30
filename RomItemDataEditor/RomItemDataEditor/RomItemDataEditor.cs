@@ -93,6 +93,10 @@ namespace RomItemDataEditor
 
         public bool GetMode(Options opt)
         {
+
+            RomReader rr = new RomReader(opt.ArgRomPath, opt.ArgDataPath);
+            log.PrintWarning(rr.GetGameCode());
+            log.PrintWarning(rr.GetGameName());
             if (opt.ArgGetName)
             {
                 RomReader romreader = new RomReader(opt.ArgRomPath, opt.ArgDataPath);

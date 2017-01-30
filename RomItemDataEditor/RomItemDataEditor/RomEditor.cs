@@ -24,7 +24,7 @@ namespace RomItemDataEditor
         abstract public bool CloseRomReader();
         abstract public bool CloseRomWriter();
 
-        protected string GetGameCode()
+        public string GetGameCode()
         {
 
             if(!OpenRomReader())
