@@ -38,8 +38,10 @@ namespace RomItemDataEditor
 
             ret = Encoding.UTF8.GetString(binaryreader.ReadBytes(4));
 
-            return ret;
+
             CloseRomReader();
+            return ret;
+            
             
         }
 
