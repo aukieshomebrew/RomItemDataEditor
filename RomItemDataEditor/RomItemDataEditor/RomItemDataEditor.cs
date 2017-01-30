@@ -213,7 +213,7 @@ namespace RomItemDataEditor
         public string ArgSetValueName { get; set; }
 
         [ValueList(typeof(List<int>), MaximumElements = 1)]
-        public List<int> ArgSetValueInt { get; set; }
+        public IList<int> ArgSetValueInt { get; set; }
         
 
         [HelpOption]
