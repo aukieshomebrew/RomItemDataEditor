@@ -143,7 +143,10 @@ namespace RomItemDataEditor
             else if (!string.IsNullOrWhiteSpace(opt.ArgSetValueName))
             {
                 RomReader romreader = new RomReader(opt.ArgRomPath, opt.ArgDataPath);
-
+                if(opt.ArgSetValueInt == 0)
+                {
+                    log.PrintWarning("'--set-value-int' not set: default value is 0");
+                }
                 if(opt.ArgHexPrint)
                 {
                     log.PrintHexValue(romreader.GetItemStructValue(opt.ArgIndex, opt.ArgSetValueName), opt.ArgSetValueName + " before");

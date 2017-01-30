@@ -72,7 +72,7 @@ namespace RomItemDataEditor
 
             if(!OpenRomReader())
             {
-                log.PrintError("Couldn't open ROM");
+                log.PrintError("Couldn't open ROM image.");
                 return string.Empty;
             }
    
