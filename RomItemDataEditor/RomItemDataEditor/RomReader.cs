@@ -63,10 +63,19 @@ namespace RomItemDataEditor
             string ret = string.Empty;
 
 
-            OpenXMLParser();
+            if(!OpenXMLParser())
+            {
+                log.PrintError("Could'nt open data file.");
+                return string.Empty;
+            }
             string gamecode = GetGameCode();
 
-            OpenRomReader();
+            if(!OpenRomReader())
+            {
+                log.PrintError("Couldn't open ROM");
+                return string.Empty;
+            }
+   
             
 
             
