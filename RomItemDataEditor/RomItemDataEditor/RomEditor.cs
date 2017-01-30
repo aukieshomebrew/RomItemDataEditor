@@ -13,6 +13,7 @@ namespace RomItemDataEditor
         protected BinaryReader binaryreader;
         protected BinaryWriter binarywriter;
         protected XMLParser xmlparser;
+        protected Logger log = new Logger();
 
         protected string rompaths;
 
@@ -26,24 +27,19 @@ namespace RomItemDataEditor
         protected string GetGameCode()
         {
 
-            OpenRomReader();
+            if(!OpenRomReader())
+            {
+                log.PrintError("Couldn't open ROM image");   
+                return string.Empty;
+            }
 
             string ret;
             binaryreader.BaseStream.Seek(0xAC, SeekOrigin.Begin);
 
             ret = Encoding.UTF8.GetString(binaryreader.ReadBytes(4));
 
-            if (binaryreader == null)
-            {
-                
-                return ret;
-            }
-                
-            else
-            {
-                CloseRomReader();
-                return ret;
-            }
+            return ret;
+            CloseRomReader();
             
         }
 

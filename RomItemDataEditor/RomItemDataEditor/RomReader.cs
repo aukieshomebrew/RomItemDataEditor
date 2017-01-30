@@ -62,10 +62,12 @@ namespace RomItemDataEditor
 
             string ret = string.Empty;
 
+
+            OpenXMLParser();
             string gamecode = GetGameCode();
 
             OpenRomReader();
-            OpenXMLParser();
+            
 
             
 
@@ -122,6 +124,13 @@ namespace RomItemDataEditor
 
         public string GetGameName()
         {
+            string ret = GetGameCode();
+
+            if (ret == string.Empty)
+            {
+                log.PrintError("Couldn't recieve the gamecode");
+                return string.Empty;
+            }
             return xmlparser.GetNameByGameCode(GetGameCode());
         }
 
