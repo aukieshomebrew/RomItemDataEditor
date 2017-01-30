@@ -133,6 +133,7 @@ namespace RomItemDataEditor
 
         public string GetGameName()
         {
+            xmlparser = new XMLParser(xmlparserpath);
             string ret = GetGameCode();
 
             if (ret == string.Empty)
