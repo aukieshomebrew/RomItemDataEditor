@@ -2,8 +2,6 @@
  *  Created by Aukie's Homebrew
  */
 
-
-
 using System;
 using System.IO;
 using CommandLine;
@@ -31,17 +29,35 @@ namespace RomItemDataEditor
                 return 0;
             }
 
+            if(!File.Exists(opt.ArgRomPath))
+            {
+                log.PrintError("Error: ROM not found!");
+                return main.ExitFailed();
+            }
+            if (!File.Exists(opt.ArgDataPath))
+            {
+                log.PrintError("Error: XML file not found!");
+                return main.ExitFailed();
+            }
+
 
             if (main.CheckModeGet(opt))
             {
-                main.GetMode(opt);
-                return 0;
+                if(!main.GetMode(opt))
+                {
+                    return main.ExitFailed();
+                }
+                else
+                {
+                    return main.ExitSucceed();
+                }
+                
             }
 
             else if (main.CheckModeSet(opt))
             {
                 main.SetMode(opt);
-                return 0;
+                return main.ExitSucceed();
             }
             else
             {
@@ -135,7 +151,11 @@ namespace RomItemDataEditor
                 log.PrintStrValue(romreader.GetItemNameByIndex(opt.ArgIndex), "Name before");
 
                 RomWriter romwriter = new RomWriter(opt.ArgRomPath, opt.ArgDataPath);
-                romwriter.SetItemNameByIndex(opt.ArgIndex, opt.ArgSetName);
+                if (!romwriter.SetItemNameByIndex(opt.ArgIndex, opt.ArgSetName))
+                {
+                    log.PrintError("New value too long!");
+                    return false;
+                }
 
 
                 log.PrintStrValue(romreader.GetItemNameByIndex(opt.ArgIndex), "Name after");
@@ -147,11 +167,11 @@ namespace RomItemDataEditor
             else if (!string.IsNullOrWhiteSpace(opt.ArgSetValueName))
             {
                 RomReader romreader = new RomReader(opt.ArgRomPath, opt.ArgDataPath);
-                if(opt.ArgSetValueInt == 0)
+                if (opt.ArgSetValueInt == 0)
                 {
                     log.PrintWarning("'--set-value-int' not set: default value is 0");
                 }
-                if(opt.ArgHexPrint)
+                if (opt.ArgHexPrint)
                 {
                     log.PrintHexValue(romreader.GetItemStructValue(opt.ArgIndex, opt.ArgSetValueName), opt.ArgSetValueName + " before");
                 }
@@ -159,7 +179,7 @@ namespace RomItemDataEditor
                 {
                     log.PrintDecValue(romreader.GetItemStructValue(opt.ArgIndex, opt.ArgSetValueName), opt.ArgSetValueName + " before");
                 }
-                
+
 
                 RomWriter romwriter = new RomWriter(opt.ArgRomPath, opt.ArgDataPath);
                 romwriter.SetItemStructValue(opt.ArgIndex, opt.ArgSetValueName, opt.ArgSetValueInt);
@@ -179,7 +199,26 @@ namespace RomItemDataEditor
             {
                 return false;
             }
+
+
+
         }
+
+        public int ExitFailed()
+
+        {
+            log.PrintError("Program failed");
+            return 0;
+        }
+
+        public int ExitSucceed()
+
+        {
+            log.PrintSuccess("Program succeed");
+            return 0;
+        }
+
+
 
 
 
@@ -219,11 +258,10 @@ namespace RomItemDataEditor
         {
             HelpText help = new HelpText
             {
-                Heading = new HeadingInfo("romitemdataeditor", "0.2"),
+                Heading = new HeadingInfo("RomItemDataEditor", "0.2.2"),
                 Copyright = new CopyrightInfo("Aukie's Homebrew", 2017),
                 AdditionalNewLineAfterOption = true,
                 AddDashesToOption = true
-
             };
             help.AddPreOptionsLine("Usage: romitemdataeditor --rom-file <*.gba file> [--data-file <*.xml file>] [--index-number <index number>] [--get-value <datamember name>] [--get-name] [--set-name <new name>] [--set-value <value-name> <integer>] [--print-hex]");
             help.AddOptions(this);

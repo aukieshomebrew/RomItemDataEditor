@@ -70,14 +70,12 @@ namespace RomItemDataEditor
 
             if(!OpenXMLParser())
             {
-                log.PrintError("Could'nt open data file.");
                 return string.Empty;
             }
             string gamecode = GetGameCode();
 
             if(!OpenRomReader())
             {
-                log.PrintError("Couldn't open ROM image.");
                 return string.Empty;
             }
    

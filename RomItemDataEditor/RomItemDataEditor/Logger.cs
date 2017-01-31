@@ -41,5 +41,12 @@ namespace RomItemDataEditor
             Console.WriteLine(warn);
             Console.ResetColor();
         }
+
+        public void PrintSuccess(string suc)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(suc);
+            Console.ResetColor();
+        }
     }
 }

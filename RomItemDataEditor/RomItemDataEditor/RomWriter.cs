@@ -103,6 +103,11 @@ namespace RomItemDataEditor
             List<byte> array = new List<byte>();
             List<byte> empty = new List<byte>();
 
+            if(newname.Length > size)
+            {
+                return false;
+            }
+
             for (int t = 0; t < size; t++)
             {
                 empty.Add(0x00);
